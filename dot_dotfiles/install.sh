@@ -4,6 +4,15 @@ if [ -z "$USER" ]; then
     USER=$(id -un)
 fi
 
+funcion create_directory_if_not_exists {
+    if [ ! -d "$1" ]; then
+        mkdir -p "$1"
+        echo "Directory $1 created."
+    else
+        echo "Directory $1 already exists."
+    fi
+}
+
 echo ""
 echo "====================================================================="
 echo " Setting up codespaces environment"
@@ -13,6 +22,8 @@ echo " HOME        $HOME"
 echo "====================================================================="
 
 cd $HOME
+
+create_directory_if_not_exists "$HOME/bin"
 
 # Make passwordless sudo work
 export SUDO_ASKPASS=/bin/true
